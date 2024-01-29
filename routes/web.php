@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Livewire\PostCreate;
+use App\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,9 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'home');
+
+Route::get('/post/create', \App\Http\Livewire\PostCreate::class);
+// Route::get('post/{slug}', \App\Http\Livewire\Post::class);
+
+Route::get('/post/{slug}', [PostController::class, 'mount'])->name('post');
+// Route::view('/{slug}', 'post');
+Route::view('/blog', 'blog');
+Route::view('/resume', 'resume');
+Route::view('/portfolio', 'portfolio');
 
 Route::middleware([
     'auth:sanctum',
